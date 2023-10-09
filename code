@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Redirect Rotator Loop</title>
+</head>
+<body>
+
+<script>
+// Daftar link yang akan di-redirect secara bergantian
+var links = [
+  'https://baselakids.com/azmya',
+  'https://basela.id/azmya',
+  'https://baselakids.com/azmya-dress'
+];
+
+// Fungsi untuk melakukan redirect
+function doRedirect() {
+  // Mengambil indeks dari local storage (jika ada)
+  var indexRedirect = localStorage.getItem('redirectIndex');
+
+  // Jika belum ada indeks di local storage, set indeks ke 0
+  if (indexRedirect === null) {
+    indexRedirect = 0;
+  } else {
+    // Convert string ke angka
+    indexRedirect = parseInt(indexRedirect);
+  }
+
+  // Redirect ke link sesuai indeks
+  window.location.href = links[indexRedirect];
+
+  // Mengatur indeks redirect berikutnya
+  indexRedirect = (indexRedirect + 1) % links.length;
+  localStorage.setItem('redirectIndex', indexRedirect.toString());
+}
+
+// Redirect ke link pertama ketika halaman pertama kali dibuka
+doRedirect();
+
+// Mengatur interval redirect berikutnya
+setInterval(doRedirect, 2000); // Interval redirect dalam milidetik (2000 milidetik = 2 detik)
+
+</script>
+
+</body>
+</html>
